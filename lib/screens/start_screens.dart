@@ -53,12 +53,26 @@ class _StartScreensState extends State<StartScreens> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      MaterialButton(
-                          color: Colors.blue,
-                          child: Text("Gallery"),
+                      ElevatedButton(
+                        onPressed: () {
+                          AppImagePicker(source: ImageSource.gallery).pick(
+                              onPick: (File? image) {
+                            imageProvider.changeImage(image!);
+                            Navigator.of(context).pushReplacementNamed('/Home');
+                          });
+                        },
+                        child: Text("Gallery"),
+                      ),
+                      ElevatedButton(
                           onPressed: () {
-                            ImagePicker();
-                          })
+                            AppImagePicker(source: ImageSource.camera).pick(
+                                onPick: (File? image) {
+                              imageProvider.changeImage(image!);
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/Home');
+                            });
+                          },
+                          child: Text('Camera'))
                     ],
                   ),
                 ),
